@@ -1,0 +1,28 @@
+{
+  "name": "graphql_movieapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeeGeonwoo22/GraphQL_MovieApi.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeeGeonwoo22/GraphQL_MovieApi/issues"
+  },
+  "homepage": "https://github.com/LeeGeonwoo22/GraphQL_MovieApi#readme",
+  "dependencies": {
+    "apollo-server": "^3.10.3",
+    "graphql": "^16.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "type" : "module"
+}
