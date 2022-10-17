@@ -14,6 +14,10 @@ const typeDefs = gql`
     allTweets: [Tweet]
     tweet(id: ID): Tweet
   }
+  type Mutation {
+    postTweet(text : String, userId :ID) : Tweet
+    deleteTweet(id : ID) : Boolean
+  }
 `;
 const server = new ApolloServer({ typeDefs });
 
@@ -21,5 +25,4 @@ server.listen().then(({ url }) => {
     console.log(`Running on ${url}`)
   });
 
-// requires an existing schema, modules or typesDef 
-// graph ql은 data의 모양을 알고 있어야한다. 
+
