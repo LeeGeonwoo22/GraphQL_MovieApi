@@ -1,6 +1,15 @@
 import { ApolloServer, gql } from "apollo-server";
 
-
+const tweets = [
+  {
+    id: "1",
+    text: "first one!",
+  },
+  {
+    id: "2",
+    text: "second one",
+  },
+];
 
 const typeDefs = gql`
   type User {
@@ -23,16 +32,16 @@ const typeDefs = gql`
   }
 `;
 const resolvers = {
-    Query : {
-      tweet() {
-        console.log("I'm called");
-        return null
-      },
-      ping(){
-        return "pong"
-      }
-    }
-}
+  Query: {
+    allTweets() {
+      return tweets;
+    },
+    tweet(root, { id }) {
+      return tweets.find((tweet) => tweet.id === id);
+    },
+  },
+};
+
 const server = new ApolloServer({ typeDefs, resolvers });
 
 server.listen().then(({ url }) => {
