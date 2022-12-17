@@ -19,7 +19,8 @@
   "homepage": "https://github.com/LeeGeonwoo22/GraphQL_MovieApi#readme",
   "dependencies": {
     "apollo-server": "^3.10.3",
-    "graphql": "^16.6.0"
+    "graphql": "^16.6.0",
+    "node-fetch": "^3.2.3"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
