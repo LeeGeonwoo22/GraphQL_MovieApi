@@ -124,10 +124,10 @@ Mutation : API와 본격 소통한다. db등 데이터를 변경(POST/PUT/DELETE
     이렇듯 resolver를 비즈니스로직 처럼 활용하여 직접적으로 db를 수정하거나 불러올 수 도 있다.
 
 ### GraphQl Relationships
-
+`
     `tweets`들과 `user`들을 연결하려 할때, 각각 임의로 필드에 `userId` 를 넣어준뒤 1은 2를 , 2는 1로 값을 서로 넣어준다. (Join) 
     SQL database가 저장하는 방식이랑 비슷하다. 외래키를 넣고 조인하는것. 
-
+`
     resolver에서 로직 구현 
-    
+`
     ![스크린샷 2022-12-17 21-28-46](https://user-images.githubusercontent.com/71261997/208241863-5323eb03-bca4-4dbe-a30b-178b29ffe566.png)
