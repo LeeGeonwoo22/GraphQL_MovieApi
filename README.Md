@@ -61,5 +61,73 @@ Mutation : API와 본격 소통한다. db등 데이터를 변경(POST/PUT/DELETE
     `!`는 `GraphQl`한테 이 필드들이 null이면 안된다는 것을 알려준다. 무엇이 `required`이고 아닌지 구체화 할수 있다.
     `[Tweet!]!`은 `[]!` 과 같으며 항상 list 여야 한다는 뜻이다.
 
+### GraphQl Resolver
 
+1. Query Resolver 만들기
 
+    위 작업은 `GraphQl`의 스키마 정의였다. resolver는 하나의 로직이며 객체같은것이다. 이 객체는 타입과 정의를 거쳐야한다. 
+
+    만약 Apollo에 누군가 query의 tweet을 요청하는것을 본다면, Apollo는 resolver의 query로 갈 것이고 resolver에서 함수(아래의 tweet())를 실행시킬 것이다. 
+
+    ![스크린샷 2022-12-17 20-49-50](https://user-images.githubusercontent.com/71261997/208240390-16151dbe-1e73-455d-9696-08afc58cb934.png)
+
+    그리고 return 되는것은 위 부분에서 해당 필드에(type Query의 tweet필드)에 실행될것이다. 
+
+    **test 1**
+
+    ![스크린샷 2022-12-17 20-51-23](https://user-images.githubusercontent.com/71261997/208240452-0ecff8b2-462f-41e1-998b-673233b7f442.png)
+
+    **test 2**
+
+    ![스크린샷 2022-12-17 20-52-30](https://user-images.githubusercontent.com/71261997/208240494-c013c96b-96d4-4e27-a78d-6a9d89fb7185.png)
+
+    
+    
+    나중엔 데이터베이스에 접근해서 어떤 SQL 코드를 실행 시킬수도 있다.
+
+    **test 1**
+    ![스크린샷 2022-12-17 20-57-45](https://user-images.githubusercontent.com/71261997/208240718-61cd56c2-c33b-45de-b9f6-ccee9788f2fa.png)
+
+    사실 위에 `root`를 무시하기위해 `_`를 쓰기도 한다. 만약 아무것도 넣지않는다면 `root`로 부터 `id`를 가져오게 된다. 왜냐하면 이것은 첫번째 `argument`이기 때문이다. 첫번째 것은 무시해야한다. 
+
+    **test 2**
+    ![스크린샷 2022-12-17 20-59-39](https://user-images.githubusercontent.com/71261997/208240787-2987d3a9-b1ea-478b-8a04-f6345f58cc98.png)
+    null이 나온다.
+
+    **test 3**
+    ![스크린샷 2022-12-17 21-00-43](https://user-images.githubusercontent.com/71261997/208240836-9a12fbfc-e81a-4a3e-8175-8741d32fc471.png)
+    위에 test1에 원하고자 하는 결과를 제대로 출력! 
+
+2. 유저들과 반응하는 resolver 만들기
+
+    ![스크린샷 2022-12-17 21-09-43](https://user-images.githubusercontent.com/71261997/208241155-16766e71-aa3b-4f25-8dd8-e1e70c228ef2.png)
+
+    본 로직은 굳이 외울 필요없다. 자바스크립트로 db를 구현한것 뿐이다. 
+
+    ![스크린샷 2022-12-17 21-11-16](https://user-images.githubusercontent.com/71261997/208241200-345d24ad-5b80-4f9c-a9e0-bde79f311666.png)
+
+    본 로직 구현 테스팅결과
+
+    delete 로직
+
+    ![스크린샷 2022-12-17 21-14-28](https://user-images.githubusercontent.com/71261997/208241385-1f38ea70-2f60-4ce1-9376-37b759d401b5.png)
+
+    **test 1**
+    ![스크린샷 2022-12-17 21-15-03](https://user-images.githubusercontent.com/71261997/208241408-475afd11-3caf-4991-824b-1b6cb249d307.png)
+
+    **test 2**
+    ![스크린샷 2022-12-17 21-16-44](https://user-images.githubusercontent.com/71261997/208241440-112c2a6a-bdd9-4a45-a1ca-458cab5f0ab2.png)
+
+    **test 3**
+    ![스크린샷 2022-12-17 21-17-19](https://user-images.githubusercontent.com/71261997/208241471-8cb7089b-d61e-48ac-bd9d-7f9c2ca527b7.png)
+
+    이렇듯 resolver를 비즈니스로직 처럼 활용하여 직접적으로 db를 수정하거나 불러올 수 도 있다.
+
+### GraphQl Relationships
+
+    `tweets`들과 `user`들을 연결하려 할때, 각각 임의로 필드에 `userId` 를 넣어준뒤 1은 2를 , 2는 1로 값을 서로 넣어준다. (Join) 
+    SQL database가 저장하는 방식이랑 비슷하다. 외래키를 넣고 조인하는것. 
+
+    resolver에서 로직 구현 
+    
+    ![스크린샷 2022-12-17 21-28-46](https://user-images.githubusercontent.com/71261997/208241863-5323eb03-bca4-4dbe-a30b-178b29ffe566.png)
